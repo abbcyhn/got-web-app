@@ -14,8 +14,6 @@ jobs:
       docker:
         image: docker:19.03.12
         options: --privileged
-#        ports:
-#          - 5432:5432
 
     steps:
     - name: Checkout code
@@ -50,15 +48,17 @@ jobs:
 #    - name: Install dependencies and run tests
 #      run: mvn clean verify
 
-    - name: Run SpotBugs analysis
-      run: mvn compile site
-
     - name: Run Jacoco code coverage report
       run: mvn jacoco:report
 
-    - name: Stop Docker Compose
-      run: docker-compose down
-      shell: bash
+    - name: Upload Jacoco coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
+
+    - name: Run SpotBugs analysis
+      run: mvn clean compile site
 
     - name: Upload SpotBugs report
       uses: actions/upload-artifact@v2
@@ -66,8 +66,6 @@ jobs:
         name: spotbugs-report
         path: target/site
 
-    - name: Upload Jacoco coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
+    - name: Stop Docker Compose
+      run: docker-compose down
+      shell: bash
