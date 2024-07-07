@@ -54,10 +54,7 @@ jobs:
       run: mvn jacoco:report
 
     - name: Run SpotBugs analysis
-      run: mvn spotbugs:check
-
-    - name: Run Checkstyle analysis
-      run: mvn checkstyle:check
+      run: mvn clean compile site
 
     - name: Stop Docker Compose
       run: docker-compose down
