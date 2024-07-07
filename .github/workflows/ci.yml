@@ -73,10 +73,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: spotbugs-report
-        path: target/site/spotbugs/
-
-    - name: Upload Checkstyle report
-      uses: actions/upload-artifact@v2
-      with:
-        name: checkstyle-report
-        path: target/site/checkstyle/
+        path: target/site
