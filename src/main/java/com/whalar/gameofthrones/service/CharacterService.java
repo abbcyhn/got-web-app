@@ -48,11 +48,7 @@ public class CharacterService {
 	private final RabbitMQProducer rabbitMQProducer;
 
 	public List<CharacterSearchResponseDto> getAll(CharacterSearchRequest request) {
-		var characters = characterDocumentRepository
-			.findByNameContainingAndNicknameContainingAndActorsNameContaining(
-				request.getName(),
-				request.getNickname(),
-				request.getActorName());
+		var characters = characterDocumentRepository.findAllByRequest(request);
 		return characterMapper.mapToCharacterSearchDtoList(characters);
 	}
 

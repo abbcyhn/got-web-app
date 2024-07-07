@@ -104,7 +104,7 @@ AsyncAPI documentation. after running url is http://localhost:8080/springwolf/as
 - [x] [Github CI](.github/workflows/ci.yml) is [connected and working](https://github.com/abbcyhn/got-web-app/actions/)
   * runs both unit and integrations test when code is pushed
   * generates code coverage report and upload as artifact
-  * if code coverage report is below 80% gives error. example: https://github.com/abbcyhn/got-web-app/actions/runs/9826943078/job/27129039229
+  * if code coverage report is below 75% gives error. example: https://github.com/abbcyhn/got-web-app/actions/runs/9826943078/job/27129039229
 - [x] [Implement unit tests for the API](/src/test/java/com/whalar/gameofthrones/unit_tests)
 - [x] [Implement integration tests](/src/test/java/com/whalar/gameofthrones/integrations_tests)
   * for integreation tests [testcontainers](https://testcontainers.com/) is used for postgres, rabbitmq, and elastic search.
@@ -125,9 +125,11 @@ You can find short explanation for each folder in source code from here:
 <!-- GETTING STARTED -->
 ## Getting Started
 To set up the project locally, you can follow the these instructions.
-Note forget that after running application you can see
-* OpenAPI documentation: http://localhost:8080/swagger-ui/index.html
-* AsyncAPI documentation: http://localhost:8080/springwolf/asyncapi-ui.html
+
+Note: After running application you can find:
+* OpenAPI documentation in http://localhost:8080/swagger-ui/index.html
+* AsyncAPI documentation in http://localhost:8080/springwolf/asyncapi-ui.html
+* /db-filler endpoint which fills database with data and syncs with elastic search. So you can test api smoothly.
 
 ### Installation
 You just need to clone the project using following command:

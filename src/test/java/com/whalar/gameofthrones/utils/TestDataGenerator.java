@@ -72,19 +72,10 @@ public class TestDataGenerator {
 	}
 
 	public List<Character> generateCharacters(int count) {
-		var characters = generateCharacters(count, false);
-		characterRepository.saveAll(characters);
-
-		characters.forEach(character -> {
-			var actors = generateActors(1, null);
-			actors.forEach(actor -> actor.setCharacter(character));
-			actorRepository.saveAll(actors);
-		});
-
-		return characters;
+		return generateCharacters(count, null, null, true);
 	}
 
-	public List<Character> generateCharacters(int count, String name, String nickname) {
+	public List<Character> generateCharacters(int count, String name, String nickname, boolean includeActors) {
 		var characters = generateCharacters(count, false);
 		characters.forEach(character -> {
 			if (name != null) {
@@ -96,16 +87,18 @@ public class TestDataGenerator {
 		});
 		characterRepository.saveAll(characters);
 
-		characters.forEach(character -> {
-			var actors = generateActors(1, null);
-			actors.forEach(actor -> actor.setCharacter(character));
-			actorRepository.saveAll(actors);
-		});
+		if (includeActors) {
+			characters.forEach(character -> {
+				var actors = generateActors(1, null);
+				actors.forEach(actor -> actor.setCharacter(character));
+				actorRepository.saveAll(actors);
+			});
+		}
 
 		return characters;
 	}
 
-	public List<Character> generateCharacters(int count, boolean overrideDefaultInitialization) {
+	private List<Character> generateCharacters(int count, boolean overrideDefaultInitialization) {
 		return getEasyRandom(overrideDefaultInitialization).objects(Character.class, count)
 			.collect(Collectors.toList());
 	}
@@ -126,28 +119,28 @@ public class TestDataGenerator {
 	}
 
 	public CharacterSaveRequestDetail generateCharacterSaveRequestDetail() {
-		return generateCharacterSaveRequestDetail(null, null, null);
+		return generateCharacterSaveRequestDetail(null, null, null, true);
 	}
 
 	public CharacterSaveRequestDetail generateCharacterSaveRequestDetail(String characterName, String characterNickname,
-	                                                                     String actorName) {
+	                                                                     String actorName, boolean includeActors) {
 		int count = 1;
 
 		var characterDetail = new CharacterSaveRequestDetail();
 		characterDetail.setActors(generateActors(count, actorName));
-		characterDetail.setAllies(generateCharacters(count, "", ""));
-		characterDetail.setParents(generateCharacters(count, "", ""));
-		characterDetail.setParentOf(generateCharacters(count, "", ""));
-		characterDetail.setSiblings(generateCharacters(count, "", ""));
-		characterDetail.setMarriedEngaged(generateCharacters(count, "", ""));
-		characterDetail.setAbducted(generateCharacters(count, "", ""));
-		characterDetail.setAbductedBy(generateCharacters(count, "", ""));
-		characterDetail.setKilled(generateCharacters(count, "", ""));
-		characterDetail.setKilledBy(generateCharacters(count, "", ""));
-		characterDetail.setServes(generateCharacters(count, "", ""));
-		characterDetail.setServedBy(generateCharacters(count, "", ""));
-		characterDetail.setGuardianOf(generateCharacters(count, "", ""));
-		characterDetail.setGuardedBy(generateCharacters(count, "", ""));
+		characterDetail.setAllies(generateCharacters(count, "", "", includeActors));
+		characterDetail.setParents(generateCharacters(count, "", "", includeActors));
+		characterDetail.setParentOf(generateCharacters(count, "", "", includeActors));
+		characterDetail.setSiblings(generateCharacters(count, "", "", includeActors));
+		characterDetail.setMarriedEngaged(generateCharacters(count, "", "", includeActors));
+		characterDetail.setAbducted(generateCharacters(count, "", "", includeActors));
+		characterDetail.setAbductedBy(generateCharacters(count, "", "", includeActors));
+		characterDetail.setKilled(generateCharacters(count, "", "", includeActors));
+		characterDetail.setKilledBy(generateCharacters(count, "", "", includeActors));
+		characterDetail.setServes(generateCharacters(count, "", "", includeActors));
+		characterDetail.setServedBy(generateCharacters(count, "", "", includeActors));
+		characterDetail.setGuardianOf(generateCharacters(count, "", "", includeActors));
+		characterDetail.setGuardedBy(generateCharacters(count, "", "", includeActors));
 
 		persistCharacterSaveRequestDetail(characterDetail);
 

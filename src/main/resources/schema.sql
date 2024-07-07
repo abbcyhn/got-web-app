@@ -3,11 +3,11 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'relation_type') THEN
         CREATE TYPE relation_type AS ENUM ('PARENT', 'SIBLING', 'MARRIED_ENGAGED');
     END IF;
-
+    
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'action_type') THEN
         CREATE TYPE action_type AS ENUM ('ABDUCTED', 'KILLED', 'SERVED', 'GUARDED');
     END IF;
-
+    
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'house_name') THEN
         CREATE TYPE house_name AS ENUM ('TARGARYEN', 'GREYJOY', 'LANNISTER', 'STARK', 'BARATHEON', 'FREY', 'TARLY', 'TULLY', 'MARTELL', 'MORMONT', 'TYRELL', 'ARRYN', 'UMBER', 'BOLTON');
     END IF;

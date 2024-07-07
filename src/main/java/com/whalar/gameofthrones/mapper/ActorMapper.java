@@ -46,7 +46,12 @@ public class ActorMapper {
 
 	public List<ActorFetchResponseDto> mapToActorDtoList(List<ActorDocument> docs) {
 		return docs.stream()
-			.map(doc -> mapToBase(doc, new ActorFetchResponseDto()))
+			.map(doc -> {
+				var actor = new ActorFetchResponseDto();
+				actor.setId(Long.parseLong(doc.getId()));
+				mapToBase(doc, actor);
+				return actor;
+			})
 			.toList();
 	}
 

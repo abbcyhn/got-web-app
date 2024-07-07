@@ -109,18 +109,18 @@ public class CharacterControllerTest {
 		int expectedCount) {
 
 		createCharacter(testDataGenerator
-			.generateCharacterSaveRequestDetail("Baby Sam", "", "William Wilson")
+			.generateCharacterSaveRequestDetail("Baby Sam", "", "William Wilson", false)
 			.getApiRequest());
 
 		createCharacter(testDataGenerator
-			.generateCharacterSaveRequestDetail("Balon Greyjoy", "Greyjoy", "Patrick Willi")
+			.generateCharacterSaveRequestDetail("Balon Greyjoy", "Greyjoy", "Patrick Willi", false)
 			.getApiRequest());
 
 		await().atMost(Duration.ofMillis(5000)).untilAsserted(() -> {
 			given()
 				.contentType(ContentType.JSON)
 				.queryParam("name", searchName)
-				.queryParam("nickname", searchNickname == null ? "" : searchNickname)
+				.queryParam("nickname", searchNickname)
 				.queryParam("actorName", searchActorName)
 				.when()
 				.get("/api/v1/characters/")

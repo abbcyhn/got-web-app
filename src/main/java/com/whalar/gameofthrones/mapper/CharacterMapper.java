@@ -32,6 +32,14 @@ public class CharacterMapper {
 		return dto;
 	}
 
+	public CharacterDocument mapToCharacterDocument(Character character) {
+		var doc = new CharacterDocument();
+		doc.setId(character.getId().toString());
+		doc.setActors(actorMapper.mapToActorDocuments(character.getId()));
+		mapToBase(doc, character);
+		return doc;
+	}
+
 	public CharacterDocument mapToCharacterDocument(CharacterPayloadDto characterPayloadDto) {
 		var doc = new CharacterDocument();
 		doc.setId(characterPayloadDto.getId());
@@ -68,6 +76,7 @@ public class CharacterMapper {
 
 	private CharacterSearchResponseDto mapToCharacterSearchResponseDto(CharacterDocument doc) {
 		var dto = new CharacterSearchResponseDto();
+		dto.setId(Long.parseLong(doc.getId()));
 		dto.setName(doc.getName());
 		dto.setNickname(doc.getNickname());
 		dto.setLink(doc.getLink());
