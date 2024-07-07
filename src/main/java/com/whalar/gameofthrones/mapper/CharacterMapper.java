@@ -94,46 +94,26 @@ public class CharacterMapper {
 	}
 
 	private void mapToBase(BaseCharacter base, Character character) {
-
 		long characterId = character.getId();
-
-		base.setName(character.getName());
-		base.setNickname(character.getNickname());
-		base.setLink(character.getLink());
-		base.setRoyal(character.isRoyal());
-		base.setKingsguard(character.isKingsguard());
-		base.setImageFull(character.getImageFull());
-		base.setImageThumb(character.getImageThumb());
-
-		base.setHouses(houseMapper.mapToHouses(characterId));
-		base.setAllies(allyMapper.mapToAllies(characterId));
-
-		base.setParents(relationshipMapper.mapToRelationshipBy(characterId, RelationType.PARENT));
-		base.setParentOf(relationshipMapper.mapToRelationshipTo(characterId, RelationType.PARENT));
-		base.setSiblings(relationshipMapper.mapToRelationshipTo(characterId, RelationType.SIBLING));
-		base.setMarriedEngaged(relationshipMapper.mapToRelationshipTo(characterId, RelationType.MARRIED_ENGAGED));
-
-		base.setAbducted(actionMapper.mapToRelationshipTo(characterId, ActionType.ABDUCTED));
-		base.setAbductedBy(actionMapper.mapToRelationshipBy(characterId, ActionType.ABDUCTED));
-		base.setKilled(actionMapper.mapToRelationshipTo(characterId, ActionType.KILLED));
-		base.setKilledBy(actionMapper.mapToRelationshipBy(characterId, ActionType.KILLED));
-		base.setServes(actionMapper.mapToRelationshipTo(characterId, ActionType.SERVED));
-		base.setServedBy(actionMapper.mapToRelationshipBy(characterId, ActionType.SERVED));
-		base.setGuardianOf(actionMapper.mapToRelationshipTo(characterId, ActionType.GUARDED));
-		base.setGuardedBy(actionMapper.mapToRelationshipBy(characterId, ActionType.GUARDED));
+		mapToBase(base, characterId, character.getName(), character.getNickname(), character.getLink(),
+			character.isRoyal(), character.isKingsguard(), character.getImageFull(), character.getImageThumb());
 	}
 
 	private void mapToBase(BaseCharacter base, CharacterPayloadDto character) {
-
 		long characterId = Long.parseLong(character.getId());
+		mapToBase(base, characterId, character.getName(), character.getNickname(), character.getLink(),
+			character.isRoyal(), character.isKingsguard(), character.getImageFull(), character.getImageThumb());
+	}
 
-		base.setName(character.getName());
-		base.setNickname(character.getNickname());
-		base.setLink(character.getLink());
-		base.setRoyal(character.isRoyal());
-		base.setKingsguard(character.isKingsguard());
-		base.setImageFull(character.getImageFull());
-		base.setImageThumb(character.getImageThumb());
+	private void mapToBase(BaseCharacter base, long characterId, String name, String nickname, String link,
+	                       boolean isRoyal, boolean isKingsguard, String imageFull, String imageThumb) {
+		base.setName(name);
+		base.setNickname(nickname);
+		base.setLink(link);
+		base.setRoyal(isRoyal);
+		base.setKingsguard(isKingsguard);
+		base.setImageFull(imageFull);
+		base.setImageThumb(imageThumb);
 
 		base.setHouses(houseMapper.mapToHouses(characterId));
 		base.setAllies(allyMapper.mapToAllies(characterId));

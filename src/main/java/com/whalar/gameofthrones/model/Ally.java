@@ -1,6 +1,5 @@
 package com.whalar.gameofthrones.model;
 
-
 import com.whalar.gameofthrones.common.EasyRandomExclude;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

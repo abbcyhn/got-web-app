@@ -3,7 +3,6 @@ package com.whalar.gameofthrones.model;
 import com.whalar.gameofthrones.common.EasyRandomExclude;
 import com.whalar.gameofthrones.common.EasyRandomFakerName;
 import com.whalar.gameofthrones.common.EasyRandomFakerUrl;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
