@@ -22,7 +22,6 @@ public class ActionMapper {
 
 	public List<Action> mapToActions(Character character, CharacterSaveRequest request) {
 		var actions = new ArrayList<Action>();
-
 		actions.addAll(mapToActions(character, request.getAbducted(), ActionType.ABDUCTED));
 		actions.addAll(mapToActionsBy(character, request.getAbductedBy(), ActionType.ABDUCTED));
 		actions.addAll(mapToActions(character, request.getKilled(), ActionType.KILLED));
@@ -31,7 +30,6 @@ public class ActionMapper {
 		actions.addAll(mapToActionsBy(character, request.getServedBy(), ActionType.SERVED));
 		actions.addAll(mapToActions(character, request.getGuardianOf(), ActionType.GUARDED));
 		actions.addAll(mapToActionsBy(character, request.getGuardedBy(), ActionType.GUARDED));
-
 		return actions;
 	}
 
