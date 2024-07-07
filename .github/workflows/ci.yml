@@ -31,6 +31,18 @@ jobs:
     - name: Run Jacoco code coverage report
       run: mvn jacoco:report
 
+    - name: Check code coverage threshold - should be great than 90%
+      run: |
+        COVERAGE=$(xmllint --xpath "number(//report/counter[@type='INSTRUCTION']/@covered)" target/site/jacoco/jacoco.xml)
+        MISSED=$(xmllint --xpath "number(//report/counter[@type='INSTRUCTION']/@missed)" target/site/jacoco/jacoco.xml)
+        TOTAL=$(($COVERAGE + $MISSED))
+        PERCENT=$(($COVERAGE * 100 / $TOTAL))
+        echo "Coverage: $PERCENT%"
+        if [ "$PERCENT" -lt 90 ]; then
+          echo "Code coverage is below 90%"
+          exit 1
+        fi
+
     - name: Upload Jacoco coverage report
       uses: actions/upload-artifact@v2
       with:
