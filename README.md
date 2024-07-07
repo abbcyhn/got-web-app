@@ -7,11 +7,12 @@
     <img src="https://img.shields.io/badge/Rabbitmq-FF6600?style=for-the-badge" alt="RabbitMQ Badge">
     <img src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white" alt="Docker Badge">
     <img src="https://img.shields.io/badge/-Swagger-%23Clojure?style=for-the-badge&logo=swagger&logoColor=white" alt="Swagger Badge">
-    <img src="https://img.shields.io/badge/openapiinitiative-%23000000.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="Postgresql Badge">
-    <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="Postgresql Badge">
+    <img src="https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white" alt="Postgresql Badge">    
 </div>
 
-
+  <div align="center">
+    <img src="https://img.shields.io/badge/coverage-76%25-green" alt="Code Coverage">
+  </div>
 
 <!-- PROJECT LOGO -->
 <br />
@@ -32,15 +33,14 @@
       <li><a href="#system-architecture">System Architecture</a></li>
       <li><a href="#database-design">Database Design</a></li>
       <li><a href="#openapi-documentation">OpenAPI Documentation</a></li>
-      <li><a href="#asyncapi-doc">AsyncAPI Documentation</a></li>
+      <li><a href="#asyncapi-documentation">AsyncAPI Documentation</a></li>
       <li><a href="#project-structure">Project Structure</a></li>
-      <li><a href="#tools-technologies">Tools & Technologies</a></li>
+      <li><a href="#tools-and-technologies">Tools & Technologies</a></li>
     </ul>
   </li>
   <li>
     <a href="#getting-started">Getting Started</a>
     <ul>
-      <li><a href="#prerequisites">Prerequisites</a></li>
       <li><a href="#installation">Installation</a></li>
     </ul>
   </li>
@@ -93,27 +93,30 @@ AsyncAPI documentation. after running url is http://localhost:8080/springwolf/as
 
 ![AsyncAPI Documentation][asyncapi-doc]
 
-### Tools & Technologies
+### Tools and Technologies
 - [x] Java, Spring Boot, PostgreSQL
-- [x] [RESTful APIS](/src/main/java/com/whalar/gameofthrones/controller)
-  - [x] OpenAPI documentation. Url is http://localhost:8080/swagger-ui/index.html
-- [x] Elasticsearch [is connected and working](/src/main/java/com/whalar/gameofthrones/model/CharacterDocument.java)
-- [x] RabbitMq is [connected and working](/src/main/java/com/whalar/gameofthrones/rabbitmq)
-  - [x] AsyncAPI documentation. url is http://localhost:8080/springwolf/asyncapi-ui.html
+- [x] RESTful APIS. Implementation is [here](/src/main/java/com/whalar/gameofthrones/controller)
+  - [x] OpenAPI documentation. Url is http://localhost:8080/swagger-ui/index.html (after running application)
+- [x] Elasticsearch is connected and working. Implementation is [here](/src/main/java/com/whalar/gameofthrones/model/CharacterDocument.java)
+- [x] RabbitMq is connected and working. Implementation is [here](/src/main/java/com/whalar/gameofthrones/rabbitmq)
+  - [x] AsyncAPI documentation. Url is http://localhost:8080/springwolf/asyncapi-ui.html  (after running application)
 - [x] [Dockerfile](Dockerfile) and [docker-compose.yml](docker-compose.yml) is created
-- [x] [Github CI](.github/workflows/ci.yml) is [connected and working](https://github.com/abbcyhn/got-web-app/actions/)
-  * runs both unit and integrations test when code is pushed
+- [x] Github CI implementation is [here](.github/workflows/ci.yml). It is connected and working in [github](https://github.com/abbcyhn/got-web-app/actions/)
+  * executes both unit and integrations test
   * generates code coverage report and upload as artifact
-  * if code coverage report is below 75% gives error. example: https://github.com/abbcyhn/got-web-app/actions/runs/9826943078/job/27129039229
-- [x] [Implement unit tests for the API](/src/test/java/com/whalar/gameofthrones/unit_tests)
-- [x] [Implement integration tests](/src/test/java/com/whalar/gameofthrones/integrations_tests)
+  * if code coverage report is below than threshold gives error. Example error can be found [here](https://github.com/abbcyhn/got-web-app/actions/runs/9826943078/job/27129039229)
+- [x] Added unit tests for the API. Implementation is [here](/src/test/java/com/whalar/gameofthrones/unit_tests)
+- [x] Added integration tests. Implementation is [here](/src/test/java/com/whalar/gameofthrones/integrations_tests)
   * for integreation tests [testcontainers](https://testcontainers.com/) is used for postgres, rabbitmq, and elastic search.
   * BDD style approach is followed
   * [faker](https://github.com/DiUS/java-faker) and [easyrandom](https://github.com/j-easy/easy-random) is used for generating random and fake datas
-- [x] [Jacoco](https://www.jacoco.org/) for [Code coverage reports](https://github.com/abbcyhn/got-web-app/actions/runs/9827328623/artifacts/1675017849)
-- [x] [SpotBugs](https://spotbugs.github.io/) for [Code analysis report](https://github.com/abbcyhn/got-web-app/actions/runs/9827328623/artifacts/1675017850)
-- [x] [Checkstyle](https://checkstyle.sourceforge.io/) for linting
+- [x] [Jacoco](https://www.jacoco.org/) is used for code coverage. Last code coverage report can be found in [here](https://github.com/abbcyhn/got-web-app/actions/runs/9829943326/artifacts/1675482493)
+  * extract .zip file and open *index.html* to view code coverage report
+- [x] [SpotBugs](https://spotbugs.github.io/) is used for code analysis. Last code analysis report can be found in [here](https://github.com/abbcyhn/got-web-app/actions/runs/9829943326/artifacts/1675482494)
+  * extract .zip file and open *spotbugs.html* to view code analysis report
+- [x] [Checkstyle](https://checkstyle.sourceforge.io/) is used for linting
 - [x] Custom [python scripts](scripts) is written for creating insert sqls from give [got-characters.json](scripts/got-characters.json) and upload them to database
+- [x] */db-filler* endpoint is created to fill database with data and syncs with elastic search in order to make testing api easy. it can be found swagger as well.
 
 
 ### Project Structure
