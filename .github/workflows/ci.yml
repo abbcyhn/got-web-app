@@ -54,20 +54,20 @@ jobs:
       run: mvn jacoco:report
 
     - name: Run SpotBugs analysis
-      run: mvn clean compile site
+      run: mvn compile site
 
     - name: Stop Docker Compose
       run: docker-compose down
       shell: bash
-
-    - name: Upload Jacoco coverage report
-      uses: actions/upload-artifact@v2
-      with:
-        name: jacoco-report
-        path: target/site/jacoco/
 
     - name: Upload SpotBugs report
       uses: actions/upload-artifact@v2
       with:
         name: spotbugs-report
         path: target/site
+
+    - name: Upload Jacoco coverage report
+      uses: actions/upload-artifact@v2
+      with:
+        name: jacoco-report
+        path: target/site/jacoco/
