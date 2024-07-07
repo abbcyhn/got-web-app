@@ -25,6 +25,9 @@ jobs:
         java-version: '21'
         distribution: 'temurin'
 
+    - name: Install xmllint
+      run: sudo apt-get install -y libxml2-utils
+
     - name: Install dependencies and run tests
       run: mvn clean verify
 
