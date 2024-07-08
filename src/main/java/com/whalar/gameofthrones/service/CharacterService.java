@@ -77,8 +77,7 @@ public class CharacterService {
 	}
 
 	public void delete(long characterId) {
-		actorRepository.deleteAllActorsFromCharacter(characterId);
-		characterRepository.deleteById(characterId);
+		deleteDetails(characterId);
 		characterDocumentRepository.deleteById(Long.toString(characterId));
 	}
 
@@ -86,11 +85,7 @@ public class CharacterService {
 		var character = characterMapper.mapToCharacterSearchDto(request);
 		if (characterId != null) {
 			character.setId(characterId);
-			allyRepository.findAll().forEach(allyRepository::delete);
-			houseRepository.findAll().forEach(houseRepository::delete);
-			actionRepository.findAll().forEach(actionRepository::delete);
-			relationshipRepository.findAll().forEach(relationshipRepository::delete);
-			actorRepository.deleteAllActorsFromCharacter(characterId);
+			deleteDetails(characterId);
 		}
 
 		character = characterRepository.save(character);
@@ -101,5 +96,29 @@ public class CharacterService {
 		actorRepository.addAllActorsToCharacter(character, request.getActors());
 
 		return character;
+	}
+
+	private void deleteDetails(long characterId) {
+		allyRepository
+			.findAll()
+			.stream()
+			.filter(x -> x.getCharacter() != null && x.getCharacter().getId() == characterId)
+			.forEach(allyRepository::delete);
+		houseRepository
+			.findAll()
+			.stream()
+			.filter(x -> x.getCharacter() != null && x.getCharacter().getId() == characterId)
+			.forEach(houseRepository::delete);
+		actionRepository
+			.findAll()
+			.stream()
+			.filter(x -> x.getCharacter() != null && x.getCharacter().getId() == characterId)
+			.forEach(actionRepository::delete);
+		relationshipRepository
+			.findAll()
+			.stream()
+			.filter(x -> x.getCharacter() != null && x.getCharacter().getId() == characterId)
+			.forEach(relationshipRepository::delete);
+		actorRepository.deleteAllActorsFromCharacter(characterId);
 	}
 }
