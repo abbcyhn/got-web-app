@@ -78,6 +78,7 @@ public class CharacterService {
 
 	public void delete(long characterId) {
 		deleteDetails(characterId);
+		characterRepository.deleteById(characterId);
 		characterDocumentRepository.deleteById(Long.toString(characterId));
 	}
 
